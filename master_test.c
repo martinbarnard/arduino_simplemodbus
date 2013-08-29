@@ -48,8 +48,8 @@ void setup() {
     modbus_construct(read_pkt, slave, READ_HOLDING_REGISTERS, 0, 1, readRegs);
     modbus_construct(write_pkt, slave, PRESET_MULTIPLE_REGISTERS, 1, 1, writeRegs);
     modbus_configure(&Serial, baud, SERIAL_8N2, timeout, polling, retry_count, TxEnablePin, packets, TOTAL_NO_OF_PACKETS);
-    /* our pins */
-    for(i==0;i<len(dev_buttons);i++){
+    /* our pins Two ints in the dev_buttons array*/
+    for(i==0;i<2;i++){
         pinMode(dev_buttons[i],INPUT_PULLUP);
     }
     ledState=false;             // led off at start
