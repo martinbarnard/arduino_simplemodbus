@@ -3,6 +3,7 @@
 #include <SoftwareSerial.h>
 #define baud 9600
 
+int dev_buttons=[master_but,remote_but]; // ID's of buttons in each unit (as they're the same)
 #define TxEnablePin 2
 #define timeout 1000
 #define polling 200 // the scan rate
@@ -11,6 +12,7 @@
 #define slave 1 // id of slave to send data to
 #define master_but 6
 #define remote_but 5
+#define num_buttons (sizeof(dev_buttons)) // # of buttons
 
 SoftwareSerial rs(3,4);
 /********************************************************************************
@@ -19,8 +21,6 @@ SoftwareSerial rs(3,4);
  *
  *
  */
-int dev_buttons=[master_but,remote_but]; // ID's of buttons in each unit (as they're the same)
-
 // our packet data
 enum {
   PACKET1,              // Read data from Slave
@@ -49,7 +49,7 @@ void setup() {
     modbus_construct(write_pkt, slave, PRESET_MULTIPLE_REGISTERS, 1, 1, writeRegs);
     modbus_configure(&Serial, baud, SERIAL_8N2, timeout, polling, retry_count, TxEnablePin, packets, TOTAL_NO_OF_PACKETS);
     /* our pins Two ints in the dev_buttons array*/
-    for(i==0;i<2;i++){
+    for(i==0;i<num_buttons;i++){
         pinMode(dev_buttons[i],INPUT_PULLUP);
     }
     ledState=false;             // led off at start
